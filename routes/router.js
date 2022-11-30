@@ -3,6 +3,8 @@ import CategoriesIndex from '../src/modules/categories/components/CategoriesInde
 import SongsIndex from '../src/modules/songs/components/SongsIndex.vue';
 import SongsList from '../src/modules/songs/components/SongsList.vue';
 import SongsCreate from '../src/modules/songs/components/SongsCreate.vue';
+import SongsEdit from '../src/modules/songs/components/SongsEdit.vue';
+
 
 
 
@@ -13,16 +15,25 @@ const routes = [
      },
     { 
         path: '/songs', 
-        component: SongsIndex 
+        component: SongsIndex,
+        redirect: '/songs/list',
+        children:[
+            {
+                path: 'list',
+                component: SongsList
+            },
+            {
+                path: 'create',
+                component: SongsCreate
+            },
+            {
+                path:':id/edit',
+                component: SongsEdit,
+                props: true
+            }
+        ] 
     },
-    {
-        path: '/list',
-        component: SongsList
-    },
-    {
-        path: '/create',
-        component: SongsCreate
-    }
+
   ];
 
 //   const router = VueRouter.createRouter({
