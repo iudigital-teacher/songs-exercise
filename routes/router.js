@@ -5,10 +5,19 @@ import SongsList from '../src/modules/songs/components/SongsList.vue';
 import SongsCreate from '../src/modules/songs/components/SongsCreate.vue';
 import SongsEdit from '../src/modules/songs/components/SongsEdit.vue';
 
+import Login from '../src/modules/auth/components/Login.vue';
+import authGuard from './auth-guard';
+
 
 
 
 const routes = [
+    {
+        path:'/login',
+        component: Login,
+        name: 'mivistalogin'
+
+    },
     { 
         path: '/categories', 
         component: CategoriesIndex
@@ -17,6 +26,7 @@ const routes = [
         path: '/songs', 
         component: SongsIndex,
         redirect: '/songs/list',
+        beforeEnter:[authGuard],
         children:[
             {
                 path: 'list',
@@ -47,5 +57,10 @@ const router = createRouter({
     routes
 
 });
+/*
+router.beforeEach((to, from, next) => {
+    console.log("To: " + to, "From: "+from, next);
+  });
+  */
 
 export default router;
