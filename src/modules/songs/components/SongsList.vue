@@ -23,12 +23,20 @@
             </tr>
         </tbody>
     </table>
+    Mi select de Canciones
+    <select name="" id="" v-model="myselectsong">
+        <option v-for="song in songs" :key="song.id" :value="song.id"> {{ song.name }}</option>
+    </select>
 </template>
 <script>
     export default {
        async created(){
+            //console.log("Este es el token", localStorage.getItem('authToken'));
             const options = {
-                method: "GET"
+                method: "GET",
+                headers: { 
+                    'Authorization' : 'Token ' + localStorage.getItem('authToken')
+                },
             }
 
             const response = await fetch("http://127.0.0.1:8000/api/song/all", options);
@@ -41,7 +49,8 @@
         data(){
             return{
                 msg: "Hola mundo",
-                songs: []
+                songs: [],
+                myselectsong: "",
             }
         },
         methods:{
